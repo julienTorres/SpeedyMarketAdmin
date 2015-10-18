@@ -24,12 +24,34 @@ public class TbLigneCommandeService {
         this.selectedLigneCommande = selectedLigneCommande;
     }
 
-    //load ligneCommandes !! problm de design; que doit-on afficher et pourquoi ??
+    /**
+     * récupère toutes les lignes de commande de la base
+     * 
+     * @return la liste des lignes de commande
+     */
+    public List<TbLigneCommande> loadLignesCommande() {
+        TbLigneCommandeDAO tbLigneCommandeDao = new TbLigneCommandeDAO();
+        return tbLigneCommandeDao.findAll();
+    }    
     
-    //load ligneCommandesByCommande 
-
-    //load ligneCommandesByArticles
-    //RQ : nécessite une nouvelle vue pour afficher les lignes de commandes 
-    //indépendemment des commandes, pour des stats par example
+    /**
+     * récupère les lignes de commande relatives à une commande
+     * @param idCommande la commande pour laquelle on cherche les lignes de commande
+     * @return la liste des lignes de commande de la commande
+     */
+    public List<TbLigneCommande> loadLignesCommandeByCommande(Integer idCommande) {
+        TbLigneCommandeDAO tbLigneCommandeDao = new TbLigneCommandeDAO();
+        return tbLigneCommandeDao.findByCommande(idCommande);
+    }
+    
+    /**
+     * récupère les lignes de commande relatives à un article
+     * @param idArticle l'article pour lequel on cherche les lignes de commande
+     * @return la liste des lignes de commandes relatives à l'aricle souhaité
+     */
+    public List<TbLigneCommande> loadLignesCommandeByArticle(Integer idArticle) {
+        TbLigneCommandeDAO tbLigneCommandeDao = new TbLigneCommandeDAO();
+        return tbLigneCommandeDao.findByArticle(idArticle);
+    }   
     
 }

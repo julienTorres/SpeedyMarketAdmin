@@ -32,15 +32,15 @@ public class TbLigneCommandeDAO {
         return lesLigneCommandes;
     }
     
-    public TbLigneCommande findByArticle(Integer article) {
-        TbLigneCommande ligneCommande = null;
+    public List<TbLigneCommande> findByArticle(Integer article) {
+        List<TbLigneCommande> lignesCommande = null;
 
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         try {
             session.beginTransaction();
             Query query = session.createQuery("from TbLigneCommande where tbArticle = :tbArticle");
             if (query.list().isEmpty()) {
-                ligneCommande = (TbLigneCommande) query.list().get(0);
+                lignesCommande = (List<TbLigneCommande>) query.list();
             }
             session.getTransaction().commit();
         } catch (RuntimeException e) {
@@ -48,18 +48,18 @@ public class TbLigneCommandeDAO {
             session.getTransaction().rollback();
         }
         
-        return ligneCommande;
+        return lignesCommande;
     }   
     
     public List<TbLigneCommande> findByCommande(Integer commande) {
-        List<TbLigneCommande> ligneCommande = null;
+        List<TbLigneCommande> lignesCommande = null;
 
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         try {
             session.beginTransaction();
             Query query = session.createQuery("from TbLigneCommande where tbCommande = :tbCommande");
             if (query.list().isEmpty()) {
-                ligneCommande = (List<TbLigneCommande>) query.list();
+                lignesCommande = (List<TbLigneCommande>) query.list();
             }
             session.getTransaction().commit();
         } catch (RuntimeException e) {
@@ -67,7 +67,7 @@ public class TbLigneCommandeDAO {
             session.getTransaction().rollback();
         }
         
-        return ligneCommande;
+        return lignesCommande;
     }   
     
 }
