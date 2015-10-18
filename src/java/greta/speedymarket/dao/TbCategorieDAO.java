@@ -67,34 +67,34 @@ public class TbCategorieDAO {
         return lesCategories;
     }
     
-    public TbCategorie findById(Integer id) {
-        TbCategorie categorie = null;
-        
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        session.beginTransaction();
-        
-        categorie = (TbCategorie) session.get(TbCategorie.class, id);
-        
-        session.close();
-        return categorie;
-    }
-    
-    public TbCategorie findByLibelle(String libelle) {
-        TbCategorie categorie = null;
-
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        try {
-            session.beginTransaction();
-            Query query = session.createQuery("from TbCategorie where CLibelle = :CLibelle");
-            if (query.list().isEmpty()) {
-                categorie = (TbCategorie) query.list().get(0);
-            }
-            session.getTransaction().commit();
-        } catch (RuntimeException e) {
-            e.printStackTrace();
-            session.getTransaction().rollback();
-        }
-        
-        return categorie;
-    }
+//    public TbCategorie findById(Integer id) {
+//        TbCategorie categorie = null;
+//        
+//        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+//        session.beginTransaction();
+//        
+//        categorie = (TbCategorie) session.get(TbCategorie.class, id);
+//        
+//        session.close();
+//        return categorie;
+//    }
+//    
+//    public TbCategorie findByLibelle(String libelle) {
+//        TbCategorie categorie = null;
+//
+//        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+//        try {
+//            session.beginTransaction();
+//            Query query = session.createQuery("from TbCategorie where CLibelle = :CLibelle");
+//            if (query.list().isEmpty()) {
+//                categorie = (TbCategorie) query.list().get(0);
+//            }
+//            session.getTransaction().commit();
+//        } catch (RuntimeException e) {
+//            e.printStackTrace();
+//            session.getTransaction().rollback();
+//        }
+//        
+//        return categorie;
+//    }
 }

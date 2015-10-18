@@ -1,7 +1,6 @@
 package greta.speedymarket.dao;
 
 import greta.speedymarket.model.TbStatut;
-import greta.speedymarket.model.TbStatut;
 import greta.speedymarket.services.HibernateUtil;
 import java.util.ArrayList;
 import java.util.List;
@@ -73,36 +72,36 @@ public class TbStatutDAO {
         return lesStatuts;
     }
     
-    public TbStatut findById(Integer id) {
-        TbStatut statut = null;
-        
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        session.beginTransaction();
-        
-        statut = (TbStatut) session.get(TbStatut.class, id);
-        
-        session.close();
-        
-        return statut;
-    }
-    
-    public TbStatut findByLibelle(String libelle) {
-        TbStatut statut = null;
-
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        try {
-            session.beginTransaction();
-            Query query = session.createQuery("from TbStatut where SLibelle = :SLibelle");
-            if (query.list().isEmpty()) {
-                statut = (TbStatut) query.list().get(0);
-            }
-            session.getTransaction().commit();
-        } catch (RuntimeException e) {
-            e.printStackTrace();
-            session.getTransaction().rollback();
-        }
-        
-        return statut;
-    } 
+//    public TbStatut findById(Integer id) {
+//        TbStatut statut = null;
+//        
+//        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+//        session.beginTransaction();
+//        
+//        statut = (TbStatut) session.get(TbStatut.class, id);
+//        
+//        session.close();
+//        
+//        return statut;
+//    }
+//    
+//    public TbStatut findByLibelle(String libelle) {
+//        TbStatut statut = null;
+//
+//        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+//        try {
+//            session.beginTransaction();
+//            Query query = session.createQuery("from TbStatut where SLibelle = :SLibelle");
+//            if (query.list().isEmpty()) {
+//                statut = (TbStatut) query.list().get(0);
+//            }
+//            session.getTransaction().commit();
+//        } catch (RuntimeException e) {
+//            e.printStackTrace();
+//            session.getTransaction().rollback();
+//        }
+//        
+//        return statut;
+//    } 
     
 }
