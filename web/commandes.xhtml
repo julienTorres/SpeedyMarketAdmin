@@ -1,0 +1,102 @@
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    template="/templates/template.xhtml"
+    xmlns:p="http://primefaces.org/ui">
+    
+    <ui:define name="content">
+
+        <h:form id="form"> 
+
+            <p:dataTable id="listeCommande" 
+                         var="commande" 
+                         value="#{TbCommandeService.loadCommandes()}" 
+                         selectionMode="single" 
+                         selection="#{TbCommandeService.selectedCommande}" 
+                         rowKey="#{commande.idCommande}">
+
+                <f:facet name="header">
+                    Liste des commandes
+                </f:facet>
+
+                <p:ajax event="rowSelect" update=":form" />
+                
+                <p:column headerText="Numero de commande">
+                    <h:outputText value="#{commande.idCommande}" />
+                </p:column>
+
+                <p:column headerText="Date de commande">
+                    <h:outputText value="#{commande.CDate}" />
+                </p:column>
+                
+                <p:column headerText="Date de retrait">
+                    <h:outputText value="#{commande.CDateretrait}" />
+                </p:column>
+                
+                <p:column headerText="Client">
+                    <h:outputText value="#{commande.tbPersonneByClientIdPers.PNom}" />
+                </p:column> 
+                
+                <p:column headerText="Préparateur">
+                    <h:outputText value="#{commande.tbPersonneByPrepaIdPers.PNom}" />
+                </p:column>  
+                
+                <p:column headerText="Statut">
+                    <h:outputText value="#{commande.tbStatut.SLibelle}" />
+                </p:column>
+       
+                <f:facet name="footer">
+                    <p:commandButton process="listeCommande" 
+                                     update=":form:detailCommande" 
+                                     icon="ui-icon-search" 
+                                     value="Editer" 
+                                     oncomplete="PF('commandeDialog').show()" 
+                                     disabled="#{empty TbCommandeService.selectedCommande}" />
+                </f:facet>
+       
+            </p:dataTable>
+           
+            <p:dialog header="Détail de la commande" 
+                      widgetVar="commandeDialog" 
+                      showEffect="fade" 
+                      hideEffect="fade" 
+                      resizable="false" 
+                      minWidth="400">
+                
+                <p:outputPanel id="detailCommande" 
+                               style="text-align:center;">
+                    
+                    <p:panelGrid  columns="2" 
+                                  rendered="#{not empty TbCommandeService.selectedCommande}" 
+                                  columnClasses="label,value">
+                        
+                        <p:dataTable    id="tableLigneCommandes"
+                                        var="ligneCommande" 
+                                        value="#{TbCommandeService.selectedCommande.tbLigneCommandes}" 
+                                        selectionMode="single" 
+                                        selection="#{TbLigneCommandeService.selectedLigneCommande}" 
+                                        rowKey="#{ligneCommande.tbCommande.idCommande}">
+
+
+                            <p:column headerText="Article">
+                                <h:outputText value="#{ligneCommande.tbArticle.ADesignation}" />
+                            </p:column>
+                            <p:column headerText="Quantité en stock">
+                                <h:outputText value="#{ligneCommande.tbArticle.AQuantiteStock}" />
+                            </p:column>
+                            <p:column headerText="Quantité commandée">
+                                <h:outputText value="#{ligneCommande.qteCmde}" />
+                            </p:column>
+
+                        </p:dataTable>
+                        
+                    </p:panelGrid>
+                </p:outputPanel>
+            </p:dialog>
+            
+        </h:form>
+        
+    </ui:define>
+</ui:composition>

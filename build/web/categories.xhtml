@@ -1,0 +1,36 @@
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    template="/templates/template.xhtml"
+    xmlns:p="http://primefaces.org/ui">
+    
+    <ui:define name="content">
+
+        <h:form id="form"> 
+
+            <p:dataTable id="tableCategories" 
+                         var="categorie" 
+                         value="#{TbCategorieService.loadCategories()}" 
+                         selectionMode="single" 
+                         selection="#{TbCategorieService.selectedCategorie}" 
+                         rowKey="#{categorie.idCategorie}">
+                
+                <f:facet name="header">
+                    Liste des catégories
+                </f:facet>
+                
+                <p:column headerText="Id">
+                    <h:outputText value="#{categorie.idCategorie}" />
+                </p:column>
+                
+                <p:column headerText="Libellé">
+                    <h:outputText value="#{categorie.CLibelle}" />
+                </p:column>
+                
+            </p:dataTable>
+        </h:form>
+        
+    </ui:define>
+</ui:composition>

@@ -1,0 +1,110 @@
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    template="/templates/template.xhtml"
+    xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="content">
+
+        <h:form id="form"> 
+            <p:dataTable id="tableArticles" 
+                         var="article" 
+                         value="#{TbArticleService.loadArticles()}" 
+                         selectionMode="single" 
+                         selection="#{TbArticleService.selectedArticle}" 
+                         rowKey="#{article.idArticle}"
+                         rows="50" 
+                         paginator="true">
+
+                <f:facet name="header">
+                    Liste des articles
+                </f:facet>
+
+                <p:ajax event="rowSelect" update=":form" />
+
+                <p:column headerText="Numéro d'article">
+                    <h:outputText value="#{article.idArticle}" />
+                </p:column>
+
+                <p:column headerText="Catégorie">
+                    <h:outputText value="#{article.tbCategorie.CLibelle}" />
+                </p:column>
+
+                <p:column headerText="Désignation">
+                    <h:outputText value="#{article.ADesignation}" />
+                </p:column>
+
+                <f:facet name="footer">
+                    <p:commandButton update=":form:tableArticles" 
+                                     icon="ui-icon-plusthick" 
+                                     value="Ajouter" 
+                                     actionListener="#{TbArticleService.createArticle()}" />
+                    
+                    <p:commandButton update=":form:articleDetail" 
+                                     icon="ui-icon-search" 
+                                     value="Editer" 
+                                     oncomplete="PF('articleDialog').show()" 
+                                     disabled="#{empty TbArticleService.selectedArticle}" />
+                    
+                    <p:commandButton update=":form:tableArticles" 
+                                     icon="ui-icon-closethick" 
+                                     value="Supprimer"
+                                     actionListener="#{TbArticleService.deleteArticle(TbArticleService.selectedArticle)}" 
+                                     disabled="#{empty TbArticleService.selectedArticle}" />
+                </f:facet>                
+                
+            </p:dataTable>
+
+            <p:dialog header="Détail article" 
+                      widgetVar="articleDialog"
+                      showEffect="fade" 
+                      hideEffect="fade" 
+                      resizable="true" 
+                      minHeight="100" 
+                      minWidth="450" >
+                <p:outputPanel id="articleDetail" >
+                    
+                    <p:panelGrid columns="2" 
+                                 rendered="#{not empty TbArticleService.selectedArticle}" 
+                                 columnClasses="label,value">
+                        
+                        <h:outputText value="Catégorie" />
+
+                        <p:selectOneMenu converter="categorie" 
+                                         value="#{TbCategorieService.selectedCategorie}" 
+                                         var="c">
+                            <f:selectItem itemLabel="Select One" 
+                                          itemValue="" />
+                            <f:selectItems value="#{TbCategorieService.loadCategories()}" 
+                                           var="categorie"
+                                           itemLabel="#{categorie.CLibelle}"
+                                           itemValue="#{categorie}" /><!-- besoin d'un converter ??-->
+                            
+                            <p:column>
+                                #{c.CLibelle}
+                            </p:column>
+                        </p:selectOneMenu>
+           
+<!--                    <h:inputText value="HASHTAG{TbArticleService.selectedArticle.tbCategorie.CLibelle}" 
+                        style="width: 300px;" />-->
+                        <h:outputText value="Désignation" />
+                        <h:inputText value="#{TbArticleService.selectedArticle.ADesignation}" 
+                                     style="width: 300px;" />
+                    </p:panelGrid>
+                    
+                    <br/>
+                    
+                    <p:commandButton update=":form:tableArticles" 
+                                     icon="ui-icon-search" 
+                                     value="Enregistrer" 
+                                     actionListener="#{TbArticleService.saveArticle(TbArticleService.selectedArticle)}"
+                                     onsuccess="PF('articleDialog').hide()"
+                                     style="text-align: center;"/>
+                </p:outputPanel>
+            </p:dialog>
+        </h:form>
+
+    </ui:define>
+</ui:composition>

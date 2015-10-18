@@ -1,0 +1,40 @@
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    template="/templates/template.xhtml"
+    xmlns:p="http://primefaces.org/ui">
+    
+    <ui:define name="content">
+
+        <h:form id="form">
+
+            <p:dataTable id="tableLigneCommandes"
+                         var="ligneCommande" 
+                         value="#{TbLigneCommandeService.loadLigneCommandes()}" 
+                         selectionMode="single" 
+                         selection="#{TbLigneCommandeService.selectedLigneCommande}" 
+                         rowKey="#{ligneCommande.tbCommande.idCommande}">
+
+                <f:facet name="header">
+                    Détail d'une commande
+                </f:facet>
+
+                <p:column headerText="Article">
+                    <h:outputText value="#{ligneCommande.tbArticle.ADesignation}" />
+                </p:column>
+                <p:column headerText="Quantité en stock">
+                    <h:outputText value="#{ligneCommande.tbArticle.AQuantiteStock}" />
+                </p:column>
+                <p:column headerText="Quantité commandée">
+                    <h:outputText value="#{ligneCommande.qteCmde}" />
+                </p:column>
+
+
+            </p:dataTable>
+           
+        </h:form>
+        
+    </ui:define>
+</ui:composition>
