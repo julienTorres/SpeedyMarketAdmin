@@ -72,36 +72,36 @@ public class TbArticleDAO {
         return lesArticles;
     }
     
-    public TbArticle findById(Integer id) {
-        TbArticle article = null;
-        
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        session.beginTransaction();
-        
-        article = (TbArticle) session.get(TbArticle.class, id);
-        
-        session.close();
-        
-        return article;
-    }
-    
-    public TbArticle findByLibelle(String libelle) {
-        TbArticle article = null;
-
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        try {
-            session.beginTransaction();
-            Query query = session.createQuery("from TbArticle where ALibelle = :ALibelle");
-            if (query.list().isEmpty()) {
-                article = (TbArticle) query.list().get(0);
-            }
-            session.getTransaction().commit();
-        } catch (RuntimeException e) {
-            e.printStackTrace();
-            session.getTransaction().rollback();
-        }
-        
-        return article;
-    }    
+//    public TbArticle findById(Integer id) {
+//        TbArticle article = null;
+//        
+//        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+//        session.beginTransaction();
+//        
+//        article = (TbArticle) session.get(TbArticle.class, id);
+//        
+//        session.close();
+//        
+//        return article;
+//    }
+//    
+//    public TbArticle findByLibelle(String libelle) {
+//        TbArticle article = null;
+//
+//        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+//        try {
+//            session.beginTransaction();
+//            Query query = session.createQuery("from TbArticle where ALibelle = :ALibelle");
+//            if (query.list().isEmpty()) {
+//                article = (TbArticle) query.list().get(0);
+//            }
+//            session.getTransaction().commit();
+//        } catch (RuntimeException e) {
+//            e.printStackTrace();
+//            session.getTransaction().rollback();
+//        }
+//        
+//        return article;
+//    }    
     
 }

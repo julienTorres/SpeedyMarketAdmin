@@ -6,6 +6,10 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 
+/**
+ *
+ * @author julienTorres
+ */
 @ManagedBean(name="TbCommandeService")
 public class TbCommandeService {
 

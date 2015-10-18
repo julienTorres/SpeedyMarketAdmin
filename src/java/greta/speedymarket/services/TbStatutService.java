@@ -23,6 +23,7 @@ public class TbStatutService {
     public void setSelectedStatut(TbStatut selectedStatut) {
         this.selectedStatut = selectedStatut;
     }
+    
 
     /**
      * crée un statut avec un nom générique
