@@ -1,0 +1,97 @@
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    template="/templates/template.xhtml"
+    xmlns:p="http://primefaces.org/ui">
+    
+    <ui:define name="content">
+
+        <h:form id="form">
+
+            <p:dataTable id="tableTvas" 
+                         var="tva" 
+                         value="#{TbTvaService.loadTva()}"
+                         selectionMode="single" 
+                         selection="#{TbTvaService.selectedTva}" 
+                         rowKey="#{tva.idTva}" 
+                         rows="10" 
+                         paginator="true">
+
+                <f:facet name="header">
+                    Liste des tva
+                </f:facet>
+
+                <p:ajax event="rowSelect" update=":form" />
+
+                <p:column headerText="Libellé">
+                    <p:outputLabel value="#{tva.TLibelle}" />
+                </p:column>
+
+                <p:column headerText="Taux">
+                    <p:outputLabel value="#{tva.TTaux}" />
+                </p:column>
+                
+                <f:facet name="footer">
+<!--                    <p:commandButton update=":form:tableTvas" 
+                                     icon="ui-icon-plusthick" 
+                                     value="Ajouter" 
+                                     actionListener="" />-->
+                    
+                    <p:commandButton update=":form:tvaDetail" 
+                                     icon="ui-icon-search" 
+                                     value="Editer" 
+                                     oncomplete="PF('tvaDialog').show()" 
+                                     disabled="#{empty TbTvaService.selectedTva}" />
+                    
+                    <p:commandButton update=":form:tableTvas" 
+                                     icon="ui-icon-closethick" 
+                                     value="Supprimer"
+                                     actionListener="#{TbTvaService.deleteTva(TbTvaService.selectedTva)}" 
+                                     disabled="#{empty TbTvaService.selectedTva}" />
+                </f:facet>
+                
+            </p:dataTable>
+
+            <p:dialog header="Détail tva" 
+                      widgetVar="tvaDialog"
+                      showEffect="fade" 
+                      hideEffect="fade" 
+                      resizable="true" 
+                      minHeight="100" 
+                      minWidth="450" >
+                
+                <p:outputPanel id="tvaDetail" >
+                    
+                    <p:panelGrid columns="2" 
+                                 rendered="#{not empty TbTvaService.selectedTva}" 
+                                 columnClasses="label,value"> 
+                        
+                        <h:outputText value="Libellé" />
+                        
+                        <h:inputText value="#{TbTvaService.selectedTva.TLibelle}" 
+                                     style="width: 300px;" />
+                        
+                        <h:outputText value="Taux" />
+                        
+                        <h:inputText value="#{TbTvaService.selectedTva.TTaux}" 
+                                     style="width: 300px;" />
+
+                    </p:panelGrid>
+                    
+                    <br/>
+                    
+                    <p:commandButton update=":form:tableTvas" 
+                                     icon="ui-icon-search" 
+                                     value="Enregistrer" 
+                                     actionListener="#{TbTvaService.saveTva(TbTvaService.selectedTva)}"
+                                     onsuccess="PF('tvaDialog').hide()"
+                                     style="text-align: center;"/>
+                </p:outputPanel>
+            </p:dialog>
+
+        </h:form>
+       
+    </ui:define>
+</ui:composition>
