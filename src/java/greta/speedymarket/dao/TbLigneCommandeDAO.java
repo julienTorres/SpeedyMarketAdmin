@@ -1,6 +1,5 @@
 package greta.speedymarket.dao;
 
-import greta.speedymarket.model.TbCategorie;
 import greta.speedymarket.model.TbLigneCommande;
 import greta.speedymarket.services.HibernateUtil;
 import java.util.ArrayList;

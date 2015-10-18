@@ -4,27 +4,17 @@ import greta.speedymarket.dao.TbCommandeDAO;
 import greta.speedymarket.model.TbCommande;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.ViewScoped;
 
 /**
  *
  * @author julienTorres
  */
 @ManagedBean(name="TbCommandeService")
+@ViewScoped
 public class TbCommandeService {
 
-    @ManagedProperty(value="#{TbCommandeDAO}")
-    TbCommandeDAO tbCommandeDAO;
-
     private TbCommande selectedCommande;
-
-    public void setTbCommandeDAO(TbCommandeDAO tbCommandeDAO) {
-        this.tbCommandeDAO = tbCommandeDAO;
-    }
-
-    public List<TbCommande> loadCommandes() {
-        return tbCommandeDAO.findAll(); 
-    }
 
     public TbCommande getSelectedCommande() {
         return selectedCommande;
@@ -34,4 +24,13 @@ public class TbCommandeService {
         this.selectedCommande = selectedCommande;
     }
 
+    /**
+     * récupère toutes les commandes de la base de données
+     * @return la liste des commandes
+     */
+    public List<TbCommande> loadCommandes() {
+        TbCommandeDAO tbCommandeDAO = new TbCommandeDAO();
+        return tbCommandeDAO.findAll();
+    }
+    
 }
