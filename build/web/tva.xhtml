@@ -10,7 +10,7 @@
 
         <h:form id="form">
 
-            <p:dataTable id="tableTvas" 
+            <p:dataTable id="tableTva" 
                          var="tva" 
                          value="#{TbTvaService.loadTva()}"
                          selectionMode="single" 
@@ -34,7 +34,7 @@
                 </p:column>
                 
                 <f:facet name="footer">
-<!--                    <p:commandButton update=":form:tableTvas" 
+<!--                    <p:commandButton update=":form:tableTva" 
                                      icon="ui-icon-plusthick" 
                                      value="Ajouter" 
                                      actionListener="" />-->
@@ -45,7 +45,7 @@
                                      oncomplete="PF('tvaDialog').show()" 
                                      disabled="#{empty TbTvaService.selectedTva}" />
                     
-                    <p:commandButton update=":form:tableTvas" 
+                    <p:commandButton update=":form:tableTva" 
                                      icon="ui-icon-closethick" 
                                      value="Supprimer"
                                      actionListener="#{TbTvaService.deleteTva(TbTvaService.selectedTva)}" 
@@ -82,7 +82,7 @@
                     
                     <br/>
                     
-                    <p:commandButton update=":form:tableTvas" 
+                    <p:commandButton update=":form:tableTva" 
                                      icon="ui-icon-search" 
                                      value="Enregistrer" 
                                      actionListener="#{TbTvaService.saveTva(TbTvaService.selectedTva)}"

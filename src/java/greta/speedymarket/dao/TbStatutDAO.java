@@ -55,7 +55,7 @@ public class TbStatutDAO {
             e.printStackTrace();
             session.getTransaction().rollback();
         }
-        }
+    }
     
     public List<TbStatut> findAll() {
         List<TbStatut> lesStatuts = new ArrayList<>();

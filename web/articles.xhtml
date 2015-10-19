@@ -35,7 +35,23 @@
                 <p:column headerText="Désignation">
                     <h:outputText value="#{article.ADesignation}" />
                 </p:column>
-
+                
+                <p:column headerText="Description">
+                    <h:outputText value="#{article.ADescription}" />
+                </p:column>
+                
+                <p:column headerText="Stock">
+                    <h:outputText value="#{article.AQuantiteStock}" />
+                </p:column>   
+                
+                <p:column headerText="Prix">
+                    <h:outputText value="#{article.APht}" />
+                </p:column>
+                
+                <p:column headerText="Visible">
+                    <h:outputText value="#{article.AVisible}" />
+                </p:column>                
+                
                 <f:facet name="footer">
                     <p:commandButton update=":form:tableArticles" 
                                      icon="ui-icon-plusthick" 
@@ -71,27 +87,28 @@
                                  columnClasses="label,value">
                         
                         <h:outputText value="Catégorie" />
+                        <h:inputText value="#{TbArticleService.selectedArticle.tbCategorie.CLibelle}" 
+                        style="width: 300px;" />
 
-                        <p:selectOneMenu converter="categorie" 
-                                         value="#{TbCategorieService.selectedCategorie}" 
-                                         var="c">
-                            <f:selectItem itemLabel="Select One" 
-                                          itemValue="" />
-                            <f:selectItems value="#{TbCategorieService.loadCategories()}" 
-                                           var="categorie"
-                                           itemLabel="#{categorie.CLibelle}"
-                                           itemValue="#{categorie}" /><!-- besoin d'un converter ??-->
-                            
-                            <p:column>
-                                #{c.CLibelle}
-                            </p:column>
-                        </p:selectOneMenu>
-           
-<!--                    <h:inputText value="HASHTAG{TbArticleService.selectedArticle.tbCategorie.CLibelle}" 
-                        style="width: 300px;" />-->
                         <h:outputText value="Désignation" />
                         <h:inputText value="#{TbArticleService.selectedArticle.ADesignation}" 
                                      style="width: 300px;" />
+
+                        <h:outputText value="Description" />
+                        <h:inputText value="#{TbArticleService.selectedArticle.ADescription}" />
+                        
+                        <h:outputText value="Quantité en stock" />
+                        <h:inputText value="#{TbArticleService.selectedArticle.AQuantiteStock}" />
+                        
+                        <h:outputText value="Prix HT" />
+                        <h:inputText value="#{TbArticleService.selectedArticle.APht}" />
+                        
+                        <h:outputText value="Visible" />
+                        <h:inputText value="#{TbArticleService.selectedArticle.AVisible}" />
+                        
+                        <h:outputText value="Image" />
+                        <h:inputText value="#{TbArticleService.selectedArticle.tbImage.urlImage}" />
+
                     </p:panelGrid>
                     
                     <br/>
